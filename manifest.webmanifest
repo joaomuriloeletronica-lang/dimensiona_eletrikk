@@ -1,10 +1,33 @@
 {
+  "id": "./",
   "name": "Dimensiona Elétrico",
   "short_name": "Dimensiona",
-  "start_url": "./index.html",
+  "description": "Ferramenta de pré-dimensionamento de condutores elétricos de baixa tensão.",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#f3f6fa",
   "theme_color": "#10243a",
-  "lang": "pt-BR",
-  "icons": []
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
 }

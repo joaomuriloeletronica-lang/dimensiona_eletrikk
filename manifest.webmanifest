@@ -1,0 +1,10 @@
+{
+  "name": "Dimensiona Elétrico",
+  "short_name": "Dimensiona",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f3f6fa",
+  "theme_color": "#10243a",
+  "lang": "pt-BR",
+  "icons": []
+}

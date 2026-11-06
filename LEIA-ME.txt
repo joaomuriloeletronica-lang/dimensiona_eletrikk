@@ -1,0 +1,32 @@
+DIMENSIONA ELÉTRICO — BETA 1.0
+
+CONTEÚDO
+- index.html: interface do aplicativo
+- engine.js: motor de cálculo
+- manifest.webmanifest e sw.js: instalação PWA e cache offline
+- LEIA-ME.txt: instruções e limitações
+
+COMO TESTAR NO COMPUTADOR
+Abra index.html em um navegador moderno. O cálculo funciona localmente.
+
+COMO INSTALAR NO ANDROID
+Para instalação PWA completa, os arquivos precisam estar publicados em uma origem HTTPS.
+Uma opção gratuita é criar um repositório no GitHub e ativar GitHub Pages:
+1. Crie uma conta gratuita no GitHub, se ainda não tiver.
+2. Crie um repositório público chamado dimensiona-eletrico.
+3. Envie todos os arquivos desta pasta para a raiz do repositório.
+4. Em Settings > Pages, escolha Deploy from a branch, branch main e pasta /(root).
+5. Aguarde a publicação e abra o endereço HTTPS no Chrome do Android.
+6. Menu ⋮ > Instalar aplicativo (ou Adicionar à tela inicial).
+
+LIMITAÇÕES IMPORTANTES DA BETA 1.0
+- Implementa tabelas 36 e 37 para métodos A1, A2, B1, B2, C e D, com conjunto reduzido de seções usuais.
+- Os valores de capacidade foram transcritos de tabelas da cópia da NBR 5410:2004 corrigida em 2008 fornecida na conversa.
+- O fator adicional é obrigatório e informado pelo usuário. A aplicação não calcula automaticamente agrupamento, resistividade do solo ou todos os fatores normativos; não existe fator padrão assumido.
+- A queda de tensão é estimativa simplificada (R corrigida por temperatura e X aproximada), não substitui impedância real do cabo.
+- O resultado não verifica proteção contra sobrecarga/curto-circuito, PE, neutro, harmônicas, partida de motores, condições dos terminais, coordenação ou todos os requisitos normativos.
+- Diretamente enterrado sem proteção mecânica não está coberto pela tabela D desta versão.
+- Não usar como único critério para liberar projeto ou instalação real. Exige validação por profissional habilitado e conferência normativa integral.
+
+PRÓXIMA EVOLUÇÃO
+Ampliar base de dados e tabelas de agrupamento, implementar métodos E/F/G, resistividade térmica do solo, neutro/PE, proteção e memória de cálculo validada.

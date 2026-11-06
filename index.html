@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#10243a"><meta name="description" content="Pré-dimensionamento de condutores de baixa tensão">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Dimensiona Elétrico</title>
+<style>
+:root{--navy:#10243a;--blue:#1f6feb;--bg:#f3f6fa;--card:#fff;--text:#172435;--muted:#65758a;--line:#dce4ee;--green:#16845b;--amber:#a65c00}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text)}
+header{background:linear-gradient(130deg,#10243a,#183c5e);color:white;padding:22px 18px 24px;border-radius:0 0 22px 22px}
+header .brand{font-size:12px;letter-spacing:1.5px;opacity:.8;font-weight:700}header h1{font-size:25px;margin:5px 0 2px}header p{margin:0;color:#d6e3f2;font-size:13px}
+main{max-width:760px;margin:0 auto;padding:14px 13px 40px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0;box-shadow:0 3px 12px #122b4508}
+h2{font-size:17px;margin:0 0 12px}.sub{font-size:12px;color:var(--muted);margin-top:-7px;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.field{min-width:0}label{display:block;font-size:12px;font-weight:700;color:#41546a;margin-bottom:5px}
+input,select{width:100%;border:1px solid #cbd6e3;border-radius:10px;padding:11px 10px;background:#fff;color:var(--text);font:inherit;min-height:44px}
+input:focus,select:focus{outline:2px solid #8ab8ff;border-color:var(--blue)}
+small.help{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+button{border:0;border-radius:11px;padding:13px 16px;font:700 15px system-ui;cursor:pointer}
+.primary{background:var(--blue);color:white;width:100%;margin-top:4px}.secondary{background:#eaf1fa;color:#17436d}
+.note{font-size:12px;color:var(--muted)}.warning{background:#fff6e8;border:1px solid #f1d4a5;color:#744500;border-radius:12px;padding:12px;font-size:12px}
+.result{display:none}.big{font-size:30px;font-weight:800;color:var(--navy);letter-spacing:-1px}.pill{display:inline-block;background:#e8f5ef;color:#126044;border-radius:30px;padding:4px 9px;font-size:11px;font-weight:700}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{background:#f5f8fc;border-radius:11px;padding:11px}.metric b{display:block;font-size:18px}.metric span{font-size:11px;color:var(--muted)}
+.alt{border:1px solid var(--line);border-radius:12px;padding:12px;margin:9px 0}.alt strong{font-size:17px}.alt .detail{font-size:12px;color:var(--muted)}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:14px}
+@media(max-width:420px){.grid{grid-template-columns:1fr 1fr}.card{padding:14px}}
+</style>
+</head>
+<body>
+<header><div class="brand">FERRAMENTA DE ENGENHARIA · BETA 1.0</div><h1>Dimensiona Elétrico</h1><p>Pré-dimensionamento de condutores de baixa tensão</p></header>
+<main>
+<div class="warning"><b>Atenção — versão beta.</b> Esta versão é uma ferramenta de pré-dimensionamento e validação da interface. Não substitui projeto, consulta integral à norma, verificação de proteção contra sobrecarga/curto-circuito, PE, neutro, harmônicas, terminais e condições particulares. Não liberar circuitos reais com base apenas neste resultado.</div>
+<section class="card">
+<h2>1. Instalação e condutores</h2>
+<div class="grid">
+<div class="field"><label for="method">Método de referência</label><select id="method"><option value="B1">B1 · Condutores em eletroduto sobre parede</option><option value="B2">B2 · Cabo multipolar em eletroduto</option><option value="C">C · Cabos sobre parede / eletrocalha não ventilada</option><option value="D">D · Eletroduto enterrado</option><option value="A1">A1 · Eletroduto em parede isolante</option><option value="A2">A2 · Cabo multipolar em parede isolante</option></select></div>
+<div class="field"><label for="conductor">Material</label><select id="conductor"><option value="cu">Cobre</option><option value="al">Alumínio</option></select></div>
+<div class="field"><label for="insulation">Isolação</label><select id="insulation"><option value="xlpe">EPR / XLPE · 90 °C</option><option value="pvc">PVC · 70 °C</option></select></div>
+<div class="field"><label for="loaded">Condutores carregados</label><select id="loaded"><option value="2">2 condutores</option><option value="3" selected>3 condutores</option></select></div>
+<div class="field"><label for="ambient">Temperatura ambiente (°C)</label><input id="ambient" type="number" value="30" min="10" max="80" step="1"></div>
+<div class="field"><label for="factor">Fator adicional total</label><input id="factor" type="number" placeholder="Ex.: 0,80" min="0.1" max="1.5" step="0.01" required><small class="help">Obrigatório: informe o fator adicional aplicável (agrupamento/solo etc.) após consultar a norma. Não há valor padrão.</small></div>
+</div>
+</section>
+<section class="card">
+<h2>2. Dados elétricos</h2>
+<div class="grid">
+<div class="field"><label for="system">Sistema</label><select id="system"><option value="3">Trifásico</option><option value="2">Bifásico</option><option value="1">Monofásico</option></select></div>
+<div class="field"><label for="voltage">Tensão (V)</label><input id="voltage" type="number" value="380" min="1" step="1"></div>
+<div class="field"><label for="power">Potência aparente (kVA)</label><input id="power" type="number" value="150" min="0.01" step="0.1"></div>
+<div class="field"><label for="length">Comprimento de ida (m)</label><input id="length" type="number" value="80" min="0" step="1"></div>
+<div class="field"><label for="pf">Fator de potência</label><input id="pf" type="number" value="0.92" min="0.1" max="1" step="0.01"></div>
+<div class="field"><label for="drop">Queda de tensão máxima (%)</label><input id="drop" type="number" value="4" min="0.1" max="10" step="0.1"></div>
+</div>
+<small class="help">A potência é informada em kVA. A corrente é calculada a partir da potência aparente e da tensão selecionada; o fator de potência é usado na estimativa da queda de tensão.</small>
+</section>
+<section class="card">
+<h2>3. Alternativas de cabos em paralelo</h2>
+<div class="grid">
+<div class="field"><label for="maxParallel">Máximo de vias por fase</label><select id="maxParallel"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></div>
+<div class="field"><label for="layout">Arranjo</label><select id="layout"><option value="same">Mesma seção por via</option></select></div>
+</div>
+<p class="note">O app procurará a menor seção padronizada que atende à corrente e à queda de tensão estimada para cada quantidade de vias. Cada alternativa ainda exige avaliação de simetria, disposição, impedâncias, terminais e proteção dos condutores em paralelo.</p>
+</section>
+<button class="primary" id="calculate">Calcular alternativas</button>
+<section class="card result" id="results" aria-live="polite">
+<h2>Resultado do pré-dimensionamento</h2>
+<div id="summary"></div><div class="metrics" id="metrics"></div>
+<h2 style="margin-top:18px">Configurações encontradas</h2><div id="alternatives"></div>
+<div class="warning" style="margin-top:14px">A queda de tensão é uma estimativa simplificada com resistência do condutor corrigida por temperatura e reatância aproximada. Para validação final, utilizar impedâncias do cabo/fabricante e verificar o circuito completo.</div>
+</section>
+<section class="card">
+<h2>Referência e limitações desta versão</h2>
+<p class="note">Base de referência: ABNT NBR 5410:2004, Versão Corrigida de 17/03/2008. Tabelas de capacidade de condução 36 e 37 (métodos A1, A2, B1, B2, C e D), temperatura de referência 30 °C no ar e 20 °C no solo. Os fatores de correção adicionais devem ser inseridos pelo responsável técnico com base nas condições reais e nas tabelas aplicáveis.</p>
+<p class="note">Não estão implementados nesta beta: métodos E/F/G, tabelas completas de agrupamento, solo diretamente enterrado, neutro/harmônicas, seção do PE, proteção contra sobrecarga e curto-circuito, partidas de motores, coordenação e limites de terminais.</p>
+</section>
+<footer>Dimensiona Elétrico · Beta 1.0 · Ferramenta experimental</footer>
+</main>
+<script src="engine.js"></script><script>
+document.getElementById('calculate').addEventListener('click',()=>{
+ const ids=['method','conductor','insulation','loaded','ambient','factor','system','voltage','power','length','pf','drop','maxParallel'];
+ const v={}; for(const id of ids){const el=document.getElementById(id);v[id]=el.tagName==='SELECT'?el.value:Number(el.value);}
+ const out=window.Dimensiona.calculate(v);
+ const box=document.getElementById('results');box.style.display='block';
+ if(!out.ok){document.getElementById('summary').innerHTML='<p class="warning">'+out.error+'</p>';document.getElementById('metrics').innerHTML='';document.getElementById('alternatives').innerHTML='';box.scrollIntoView({behavior:'smooth'});return;}
+ document.getElementById('summary').innerHTML='<span class="pill">Pré-dimensionamento</span><p class="note">Corrente de projeto calculada e verificação preliminar por capacidade de condução e queda de tensão.</p>';
+ document.getElementById('metrics').innerHTML=`<div class="metric"><b>${out.current.toFixed(1)} A</b><span>Corrente de projeto</span></div><div class="metric"><b>${out.tempFactor.toFixed(2)}</b><span>Fator de temperatura</span></div>`;
+ document.getElementById('alternatives').innerHTML=out.alternatives.length?out.alternatives.map(a=>`<div class="alt"><strong>${a.n} × ${a.section} mm² por fase</strong><div class="detail">Iz corrigida total: ${a.iz.toFixed(1)} A · Queda estimada: ${a.drop.toFixed(2)}% · Critério: ${a.criterion}</div></div>`).join(''):'<p class="warning">Nenhuma alternativa encontrada na base de dados desta versão. Tente outra condição ou aguarde ampliação da base.</p>';
+ box.scrollIntoView({behavior:'smooth'});
+});
+if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script></body></html>
